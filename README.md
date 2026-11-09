@@ -1,6 +1,7 @@
-# IFPA Validator
+# IFPA_parser
 
-A lightweight Python application for checking IFPA reporting files against a YAML-driven schema catalog.
+IFPA parser and validator: a lightweight Python application for checking IFPA
+reporting files against a YAML-driven schema catalog.
 
 ## Directory structure
 
