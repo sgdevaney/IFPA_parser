@@ -88,6 +88,25 @@ class Validator:
                         }
                     )
 
+            allowed_values = field.get("allowed_values")
+            if (
+                allowed_values is not None
+                and value.strip()
+                and value.strip() not in allowed_values
+            ):
+                errors.append(
+                    {
+                        "line": line_number,
+                        "record_type": record_type,
+                        "field": field["name"],
+                        "error": "ALLOWED_VALUE",
+                        "message": (
+                            f"Expected one of {', '.join(allowed_values)}"
+                        ),
+                        "value": value,
+                    }
+                )
+
             if field.get("datatype") == "numeric":
 
                 stripped = value.strip()
@@ -191,6 +210,58 @@ def validate_file(file_path, structures_directory=None):
     validator = Validator()
     errors = []
     lines = file_path.read_text(encoding="latin-1").splitlines()
+    record_types = [line[:4] for line in lines]
+    consistent_values = {}
+
+    for record_type, position in (("0001", "first"), ("9998", "last")):
+        matching_lines = [
+            line_number
+            for line_number, current_type in enumerate(record_types, start=1)
+            if current_type == record_type
+        ]
+        if not matching_lines:
+            errors.append(
+                {
+                    "line": 1 if position == "first" else max(1, len(lines)),
+                    "record_type": record_type,
+                    "field": "RECORD",
+                    "error": f"MISSING_{'HEADER' if position == 'first' else 'TRAILER'}",
+                    "message": f"Required {position} record {record_type} is missing",
+                    "value": "",
+                }
+            )
+            continue
+
+        if len(matching_lines) > 1:
+            for line_number in matching_lines[1:]:
+                errors.append(
+                    {
+                        "line": line_number,
+                        "record_type": record_type,
+                        "field": "RECORD",
+                        "error": "DUPLICATE_BOUNDARY_RECORD",
+                        "message": (
+                            f"Record {record_type} may occur only once"
+                        ),
+                        "value": lines[line_number - 1],
+                    }
+                )
+
+        expected_line = 1 if position == "first" else len(lines)
+        if matching_lines[0] != expected_line:
+            errors.append(
+                {
+                    "line": matching_lines[0],
+                    "record_type": record_type,
+                    "field": "RECORD",
+                    "error": f"INVALID_{position.upper()}_RECORD",
+                    "message": (
+                        f"Record {record_type} must be the {position} "
+                        f"record (line {expected_line})"
+                    ),
+                    "value": lines[matching_lines[0] - 1],
+                }
+            )
 
     for line_number, line in enumerate(lines, start=1):
         record_type = line[:4]
@@ -236,6 +307,32 @@ def validate_file(file_path, structures_directory=None):
                 structure,
             )
         )
+
+        for field in structure["fields"]:
+            if not field.get("consistent_across_file"):
+                continue
+            start = field["start"] - 1
+            end = start + field["length"]
+            value = line[start:end].strip()
+            if not value:
+                continue
+
+            key = (record_type, field["name"])
+            first_value = consistent_values.setdefault(key, value)
+            if value != first_value:
+                errors.append(
+                    {
+                        "line": line_number,
+                        "record_type": record_type,
+                        "field": field["name"],
+                        "error": "INCONSISTENT_FILE_VALUE",
+                        "message": (
+                            f"Value must match {first_value!r} throughout "
+                            "the file"
+                        ),
+                        "value": value,
+                    }
+                )
 
         if "record_count_field" in structure:
             excluded_record_types = set(

@@ -29,8 +29,9 @@ python -m src.cli input/20260109_163204_IFPA2235-3RD.txt --report output/report.
 ## Notes
 
 The parser reads fixed-width IFPA records. The validator checks each record
-against its YAML structure and verifies that the record count in a `9998`
-trailer matches the total number of records in the file.
+against its YAML structure, requires a `0001` header and `9998` trailer in
+the correct positions, checks file-wide reporting-year and reporting-type
+consistency, and verifies the record count in the trailer.
 Use `--report` to write validation errors to an Excel workbook with Line,
 Record, Field, Code, Description, and Value columns.
 

@@ -56,6 +56,7 @@ fields:
   datatype: numeric
   field_number: 10
   required: true
+  consistent_across_file: true
 - name: EJERSTATUKOD
   start: 61
   length: 1
@@ -414,6 +415,10 @@ fields:
   datatype: alphanumeric
   field_number: 69
   required: true
+  allowed_values:
+  - '1'
+  - '2'
+  consistent_across_file: true
 - name: RNTMOTAGKOD
   start: 1198
   length: 1

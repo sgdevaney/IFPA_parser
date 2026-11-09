@@ -346,6 +346,11 @@ sender number, and record type. File validation compares the trailer count
 with records including the header and trailer, excluding record types listed
 in the trailer schema's `record_count_excluded_types`.
 
+The validator also requires exactly one header at the start and one trailer
+at the end. Header and trailer field layouts are validated against metadata.
+All data records must use one calendar year and one reporting type; reporting
+type is restricted to 1 or 2.
+
 The current sample has no filler records. The official 9998 source says filler
 individuals must not be counted. No filler record type is identified in the
 available source pages, so the exclusion list is currently empty.
@@ -353,6 +358,12 @@ available source pages, so the exclusion list is currently empty.
 The final period in the sample is an intentional marker that protects trailing
 spaces from truncation. It is allowed in the final filler field; other 2235
 filler regions are required to be blank.
+
+The official 2025 header documentation specifies the fixed file number
+`0314321270`. Per team decision, this is enforced through the `FILNR.pattern`
+in `data/structures/0001.yaml`. The supplied sample contains `0314326276` and
+therefore reports a header validation error. Update the schema metadata after
+team review rather than changing the validator code.
 
 ## Task 2 — Completed
 

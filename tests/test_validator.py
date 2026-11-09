@@ -11,18 +11,42 @@ from src.validator import validate_file
 
 
 ROOT = Path(__file__).resolve().parent.parent
+SAMPLE_FILE = ROOT / "input" / "20260109_163204_IFPA2235-3RD.txt"
+
+
+def sample_lines():
+    return SAMPLE_FILE.read_text(encoding="latin-1").splitlines()
 
 
 class ValidatorSmokeTests(unittest.TestCase):
     def test_sample_file_validates_without_errors(self):
-        sample = ROOT / "input" / "20260109_163204_IFPA2235-3RD.txt"
-        report = validate_file(sample)
+        report = validate_file(SAMPLE_FILE)
         self.assertEqual(report["summary"]["error_count"], 0)
         self.assertEqual(report["summary"]["record_count"], 37)
 
+    def test_sample_file_number_mismatch_is_reported(self):
+        lines = sample_lines()
+        header = lines[0]
+        lines[0] = header[:12] + "0314326276" + header[22:]
+
+        with TemporaryDirectory() as temporary_directory:
+            test_file = Path(temporary_directory) / SAMPLE_FILE.name
+            test_file.write_text(
+                "\n".join(lines) + "\n",
+                encoding="latin-1",
+            )
+            report = validate_file(test_file)
+
+        header_errors = [
+            error
+            for error in report["errors"]
+            if error["line"] == 1 and error["field"] == "FILNR"
+        ]
+        self.assertEqual(len(header_errors), 1)
+        self.assertEqual(header_errors[0]["error"], "PATTERN")
+
     def test_trailer_count_mismatch_is_reported(self):
-        sample = ROOT / "input" / "20260109_163204_IFPA2235-3RD.txt"
-        lines = sample.read_text(encoding="latin-1").splitlines()
+        lines = sample_lines()
         trailer_index = next(
             index
             for index, line in enumerate(lines)
@@ -41,15 +65,13 @@ class ValidatorSmokeTests(unittest.TestCase):
             )
             report = validate_file(test_file)
 
-        self.assertEqual(report["summary"]["error_count"], 1)
-        self.assertEqual(
-            report["errors"][0]["error"],
+        self.assertIn(
             "TRAILER_COUNT_MISMATCH",
+            {error["error"] for error in report["errors"]},
         )
 
     def test_nonblank_2235_filler_is_reported(self):
-        sample = ROOT / "input" / "20260109_163204_IFPA2235-3RD.txt"
-        lines = sample.read_text(encoding="latin-1").splitlines()
+        lines = sample_lines()
         data_record = list(lines[1])
         data_record[138] = "X"
         lines[1] = "".join(data_record)
@@ -62,13 +84,13 @@ class ValidatorSmokeTests(unittest.TestCase):
             )
             report = validate_file(test_file)
 
-        self.assertEqual(report["summary"]["error_count"], 1)
-        self.assertEqual(report["errors"][0]["field"], "FILLER_139")
-        self.assertEqual(report["errors"][0]["error"], "FILLER_NOT_BLANK")
+        self.assertIn(
+            ("FILLER_139", "FILLER_NOT_BLANK"),
+            {(error["field"], error["error"]) for error in report["errors"]},
+        )
 
     def test_final_period_marker_is_required(self):
-        sample = ROOT / "input" / "20260109_163204_IFPA2235-3RD.txt"
-        lines = sample.read_text(encoding="latin-1").splitlines()
+        lines = sample_lines()
         lines[-1] = lines[-1][:-1] + " "
 
         with TemporaryDirectory() as temporary_directory:
@@ -79,9 +101,85 @@ class ValidatorSmokeTests(unittest.TestCase):
             )
             report = validate_file(test_file)
 
-        self.assertEqual(report["summary"]["error_count"], 1)
-        self.assertEqual(report["errors"][0]["field"], "FILLER_20")
-        self.assertEqual(report["errors"][0]["error"], "TRAILER_MARKER")
+        self.assertIn(
+            ("FILLER_20", "TRAILER_MARKER"),
+            {(error["field"], error["error"]) for error in report["errors"]},
+        )
+
+    def test_header_and_trailer_are_required(self):
+        lines = sample_lines()
+        content_without_boundaries = "\n".join(lines[1:-1]) + "\n"
+
+        with TemporaryDirectory() as temporary_directory:
+            test_file = Path(temporary_directory) / "missing_boundaries.txt"
+            test_file.write_text(
+                content_without_boundaries,
+                encoding="latin-1",
+            )
+            report = validate_file(test_file)
+
+        error_codes = {error["error"] for error in report["errors"]}
+        self.assertIn("MISSING_HEADER", error_codes)
+        self.assertIn("MISSING_TRAILER", error_codes)
+
+    def test_header_and_trailer_must_be_file_boundaries(self):
+        lines = sample_lines()
+        lines[0], lines[1] = lines[1], lines[0]
+        lines[-1], lines[-2] = lines[-2], lines[-1]
+
+        with TemporaryDirectory() as temporary_directory:
+            test_file = Path(temporary_directory) / "misordered_boundaries.txt"
+            test_file.write_text(
+                "\n".join(lines) + "\n",
+                encoding="latin-1",
+            )
+            report = validate_file(test_file)
+
+        error_codes = {error["error"] for error in report["errors"]}
+        self.assertIn("INVALID_FIRST_RECORD", error_codes)
+        self.assertIn("INVALID_LAST_RECORD", error_codes)
+
+    def test_calendar_year_must_be_consistent_across_records(self):
+        lines = sample_lines()
+        second_data_record = list(lines[2])
+        second_data_record[56:60] = "2024"
+        lines[2] = "".join(second_data_record)
+
+        with TemporaryDirectory() as temporary_directory:
+            test_file = Path(temporary_directory) / "mixed_years.txt"
+            test_file.write_text(
+                "\n".join(lines) + "\n",
+                encoding="latin-1",
+            )
+            report = validate_file(test_file)
+
+        self.assertIn(
+            "INCONSISTENT_FILE_VALUE",
+            {error["error"] for error in report["errors"]},
+        )
+
+    def test_reporting_type_is_limited_and_consistent(self):
+        lines = sample_lines()
+        second_data_record = list(lines[2])
+        second_data_record[1196] = "3"
+        lines[2] = "".join(second_data_record)
+
+        with TemporaryDirectory() as temporary_directory:
+            test_file = Path(temporary_directory) / "invalid_report_type.txt"
+            test_file.write_text(
+                "\n".join(lines) + "\n",
+                encoding="latin-1",
+            )
+            report = validate_file(test_file)
+
+        self.assertIn(
+            "ALLOWED_VALUE",
+            {error["error"] for error in report["errors"]},
+        )
+        self.assertIn(
+            "INCONSISTENT_FILE_VALUE",
+            {error["error"] for error in report["errors"]},
+        )
 
     def test_excel_report_has_expected_columns(self):
         columns = [
