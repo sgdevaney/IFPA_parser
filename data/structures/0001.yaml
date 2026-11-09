@@ -1,15 +1,4 @@
 record_type: "0001"
 description: "Report header"
-fields:
-  - name: report_id
-    type: str
-    required: true
-    length: 20
-  - name: report_year
-    type: int
-    required: true
-    length: 4
-  - name: created_by
-    type: str
-    required: true
-    length: 15
+record_length: 1346
+fields: []

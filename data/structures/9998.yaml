@@ -1,0 +1,27 @@
+record_type: "9998"
+description: "Report trailer"
+record_length: 1346
+record_count_field: record_count
+record_count_excluded_types: []
+fields:
+  - name: INDVNR
+    start: 1
+    length: 4
+    datatype: numeric
+    required: true
+    pattern: "^9998$"
+  - name: BRUGERNR
+    start: 5
+    length: 8
+    datatype: numeric
+    required: true
+  - name: record_count
+    start: 13
+    length: 7
+    datatype: numeric
+    required: true
+  - name: FILLER_20
+    start: 20
+    length: 1327
+    datatype: alphanumeric
+    trailing_marker: .

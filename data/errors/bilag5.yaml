@@ -1,5 +1,472 @@
-BILAG5:
-  code: BILAG5
-  title: Missing required field
-  message: A required field is missing from the IFPA record.
-  severity: error
+source:
+  title: Bilag 5 Fejl- og advisnumre med rettelsesvejledning
+  url: https://info.skat.dk/data.aspx?oid=2289766&chk=220798
+  applies_to: 2025
+errors:
+  '005':
+    severity: error
+    message: Fejl i OPSENR
+    correction: Ingen uddybende beskrivelse.
+  '017':
+    severity: error
+    message: 'PNRSENR: Ej for ejerstatus 7'
+    correction: Ingen uddybende beskrivelse.
+  '024':
+    severity: error
+    message: Fejl i rettekode
+    correction: Der er brugt forkert rettekode. Negative beløb skal oplyses med rettekode 1 eller 2.
+  '031':
+    severity: error
+    message: Fejl i CPRNR
+    correction: Ingen uddybende beskrivelse.
+  '032':
+    severity: error
+    message: CPRNR mangler
+    correction: Ingen uddybende beskrivelse.
+  '033':
+    severity: error
+    message: Fejl i ejerstatuskode
+    correction: Undersøg om ejerstatuskode og landekode er indbyrdes forenelige. Fx må ejerstatuskode for ejer med bopæl i DK (0, 2, 4 og F.) ikke indberettes med udenlandsk landekode. Undersøg om landekoden er den korrekte og officielle landekode og evt. fremgår på landekodelisten under Øvrige hjælpelister under Årsbrevet.
+  039:
+    severity: error
+    message: Fejl i hjemlandskode
+    correction: Undersøg om ejerstatuskode og landekode er indbyrdes forenelige. Fx må ejerstatuskode for ejer med bopæl i DK (0, 2, 4 og F.) ikke indberettes med udenlandsk landekode. Undersøg om landekoden er den korrekte og officielle landekode og evt. fremgår på landekodelisten under Øvrige hjælpelister under Årsbrevet.
+  '041':
+    severity: error
+    message: Fejl i regnr.
+    correction: Ingen uddybende beskrivelse.
+  '045':
+    severity: error
+    message: Fejl i kursværdi
+    correction: Ingen uddybende beskrivelse.
+  '057':
+    severity: error
+    message: Fejl i CPR/CVR/SENR
+    correction: Det oplyste cpr-nr., cvr-nr. eller se-nr. findes ikke. Ret til korrekt cpr-nr., cvr-nr. eller se-nr.
+  058:
+    severity: error
+    message: CPR/CVR/SENR mangler
+    correction: Oplysning om cpr-nr., cvr-nr. eller se-nr. mangler.
+  '072':
+    severity: error
+    message: Negativt beløb kræver rettekode 1 eller 2
+    correction: Beløbet er negativt. Det er derfor en rettelse, som kræver samtidig oplysning om en rettekode i felt 13.
+  '074':
+    severity: error
+    message: Fejl i beløb
+    correction: Beløb skal være numerisk, og skal altid skrives højrestillet.
+  087:
+    severity: error
+    message: SENR ukendt i systemet
+    correction: Det oplyste se-nr. findes ikke. Ret til korrekt se-nr.
+  '132':
+    severity: error
+    message: Fejl i invstf.art kode
+    correction: Anvendt kode forskellig fra 1, 2, 3 eller 8.
+  '133':
+    severity: error
+    message: 'Afstemningsfejl: udbyttesum'
+    correction: Vedrører felt 38. Summen af felterne 35, 36, 37, 39, 40 og (41 eller 42) skal være identisk med beløb i felt 38.
+  '134':
+    severity: error
+    message: Fejl i udl.invstf. landekod
+    correction: Ingen uddybende beskrivelse.
+  '139':
+    severity: error
+    message: Skatfriudl kan ej forekomme
+    correction: Ingen uddybende beskrivelse.
+  '140':
+    severity: error
+    message: Kapindkudl kan ej forekomme
+    correction: Ingen uddybende beskrivelse.
+  '141':
+    severity: error
+    message: Fejl i invstf.virkekode
+    correction: Anvendt kode forskellig fra A, O eller B.
+  '144':
+    severity: error
+    message: Kapindk. neg kode ej opsat
+    correction: Ingen uddybende beskrivelse.
+  '145':
+    severity: error
+    message: Aktindk. neg kode ej opsat
+    correction: Ingen uddybende beskrivelse.
+  '148':
+    severity: error
+    message: Fejl i P/S-kode
+    correction: Undersøg om investeringsinstituttets art (kode 2, kontoførende) er korrekt. Er art anført korrekt, skal felt 24 oplyses med kode 1, 2, 5 eller 6. Samtidig skal der ske indberetning til felt 25, og måske 26 og 27.
+  '149':
+    severity: error
+    message: P/S-kode skal være blank
+    correction: Ingen uddybende beskrivelse.
+  '150':
+    severity: error
+    message: P/S-kode kræver se-nr.
+    correction: Vedrører felt 24. Er P/S-koden 5 for selskab (realisationsprincip) eller 6 for selskab (lagerprincip) skal der samtidig oplyses cvr-nr. eller se-nr. på investor i felt 12. Samtidig skal der ske indberetning til felt 25, og måske 26 og 27.
+  '151':
+    severity: error
+    message: 'P/S-kode: driftform forkert'
+    correction: Vedrører felt 12 og 24. Undersøg om investors driftsform er oplyst korrekt i felt 12. Brug af kode 1 eller 2 i felt 24 kræver, at investor er fx en person, enkelt-mandsvirksomhed, interessentskab eller kommanditselskab. Samtidig skal der ske indberetning til felt 25, og måske 26 og 27.
+  '152':
+    severity: error
+    message: Fejl vedr. årlig udbytte
+    correction: Ingen uddybende beskrivelse.
+  '153':
+    severity: error
+    message: Friv. udl. må ej forekomme
+    correction: Ingen uddybende beskrivelse.
+  '170':
+    severity: error
+    message: Fejl i spec.foreningskode
+    correction: Ingen uddybende beskrivelse.
+  '189':
+    severity: error
+    message: Papirnavn mangler
+    correction: Ingen uddybende beskrivelse.
+  '190':
+    severity: error
+    message: Neg antal kræver rettekode 1 el 2
+    correction: Ingen uddybende beskrivelse.
+  '191':
+    severity: error
+    message: Fejl i antal styk
+    correction: Ingen uddybende beskrivelse.
+  '215':
+    severity: error
+    message: Fejl i forskudtregnskabsdto
+    correction: Ingen uddybende beskrivelse.
+  '216':
+    severity: error
+    message: Dato ej kontoførende invstf.
+    correction: Ingen uddybende beskrivelse.
+  '217':
+    severity: error
+    message: Ikke sammenhæng i datoer
+    correction: Ingen uddybende beskrivelse.
+  '218':
+    severity: error
+    message: Forskregnslutdto ej indk.år
+    correction: Ingen uddybende beskrivelse.
+  '219':
+    severity: error
+    message: Fejl i nær. skatpligt. kode
+    correction: Ingen uddybende beskrivelse.
+  '220':
+    severity: error
+    message: 'Fejl: art/nær. skatpligt.kod'
+    correction: Ingen uddybende beskrivelse.
+  '225':
+    severity: error
+    message: Fejl i udbytteprocent
+    correction: Ingen uddybende beskrivelse.
+  '226':
+    severity: error
+    message: Fejl i vedtagelsesdato
+    correction: Vedtagelsesdato skal være oplyst, når der indberettes beløb i felt 38 (sum bruttoudbytte). Dato oplyses som ÅÅÅÅMMDD.
+  '227':
+    severity: error
+    message: Fejl i år i vedtagelsesdato
+    correction: År i vedtagelsesdato skal være identisk med det år, der indberettes om.
+  '233':
+    severity: error
+    message: TINNR errst ikke val/diplo
+    correction: Undersøg investors status (bopæl i DK eller i udlandet) til brug for korrekt ejerstatuskode. Har investor bopæl i DK kræver indberetningen et dansk cpr-nr. (felt 12) sammen med ejerstatuskode 0, 2, 4 eller F. og ingen supplerende identifikationsoplysninger. Har investor bopæl i udlandet kræver indberetningen alle de obligatoriske supplerende identifikationsoplysninger sammen med ejerstatuskode 1,5, 8, U eller V og felt 12 skal kun udfyldes såfremt der er et dansk cpr-nr.
+  '234':
+    severity: error
+    message: TINNRtyp ejrst ej val/diplo
+    correction: Undersøg investors status (bopæl i DK eller i udlandet) til brug for korrekt ejerstatuskode. Har investor bopæl i DK kræver indberetningen et dansk cpr-nr. (felt 12) sammen med ejerstatuskode 0, 2, 4 eller F. og ingen supplerende identifikationsoplysninger. Har investor bopæl i udlandet kræver indberetningen alle de obligatoriske supplerende identifikationsoplysninger sammen med ejerstatuskode 1,5, 8, U eller V. og felt 12 skal kun udfyldes såfremt der er et dansk cpr.nr.
+  '235':
+    severity: error
+    message: Fødested ejrst ej val/diplo
+    correction: Undersøg investors status (bopæl i DK eller i udlandet) til brug for korrekt ejerstatuskode. Har investor bopæl i DK kræver indberetningen et dansk cpr-nr. (felt 12) sammen med ejerstatuskode 0, 2, 4 og F. og ingen supplerende identifikationsoplysninger. Har investor bopæl i udlandet kræver indberetningen alle de obligatoriske supplerende identifikationsoplysninger sammen med ejerstatuskode 1, 5, 8, U eller V. og felt 12 skal kun udfyldes såfremt der er et dansk cpr.nr.
+  '236':
+    severity: error
+    message: Fødeland ejrst ej val/diplo
+    correction: Undersøg investors status (bopæl i DK eller i udlandet) til brug for korrekt ejerstatuskode. Har investor bopæl i DK kræver indberetningen et dansk cpr-nr. (felt 12) sammen med ejerstatuskode 0, 2, 4 eller F. og ingen supplerende identifikationsoplysninger. Har investor bopæl i udlandet kræver indberetningen alle de obligatoriske supplerende identifikationsoplysninger sammen med ejerstatuskode 1,5, 8, U og V. og felt 12 skal kun udfyldes såfremt der er et dansk cpr.nr.
+  '237':
+    severity: error
+    message: Fejl i TINNR typekode
+    correction: Ingen uddybende beskrivelse
+  '238':
+    severity: error
+    message: TINNR er ikke indberettet
+    correction: Ingen uddybende beskrivelse
+  '239':
+    severity: error
+    message: Ti’NNR typekode mqangler
+    correction: Ingen uddybende beskrivelse
+  '240':
+    severity: error
+    message: TINNR er ikke en valid dato
+    correction: Ingen uddybende beskrivelse
+  '241':
+    severity: error
+    message: Fejl i fødestedslandekode
+    correction: Ingen uddybende beskrivelse
+  '242':
+    severity: error
+    message: Fejl i fornavn
+    correction: Ingen uddybende beskrivelse
+  '243':
+    severity: error
+    message: Fejl i efternavn
+    correction: Ingen uddybende beskrivelse
+  '244':
+    severity: error
+    message: Fejl i vejnavn
+    correction: Ingen uddybende beskrivelse
+  '245':
+    severity: error
+    message: Fejl i postdistrikt
+    correction: Ingen uddybende beskrivelse
+  '246':
+    severity: error
+    message: Fejl i husnr.
+    correction: Ingen uddybende beskrivelse
+  '247':
+    severity: error
+    message: Fejl i postnr.
+    correction: Ingen uddybende beskrivelse.
+  '251':
+    severity: error
+    message: Fejl i skatbegunstigordkod
+    correction: Ingen uddybende beskrivelse.
+  '252':
+    severity: error
+    message: Skatbgustord ejr. ej 1/5/U el.8
+    correction: Undersøg om skattebegunstiget ordning er korrekt i felt 28. Er den det, skal ejerstatuskode være 8. Samtidig skal depotkode i felt 32 være KAP eller BOP.
+  '270':
+    severity: error
+    message: Fejl i AS-ident
+    correction: Ingen uddybende beskrivelse.
+  '271':
+    severity: error
+    message: Selskabsbeløb kun for selskaber
+    correction: Almindelig selskabsindkomst i felt 42 må kun være udfyldt når investor er et selskab, fx et ApS eller A/S. Undersøg om investors cvr-nr. eller se-nr. i felt 12 er korrekt for et selskab eller en anden driftsform, fx enkeltmandsvirksomhed.
+  '272':
+    severity: error
+    message: Andre beløb end for selskaber
+    correction: Der indberettes for et selskab i felt 35, 36, 37, 39, 40 eller 41. Brug i stedet felt 42 (almindelig selskabsindkomst). Samtidig skal der ske indberetning til felt 38 og 44.
+  '273':
+    severity: error
+    message: Fejl i depotkode
+    correction: Ingen uddybende beskrivelse.
+  '274':
+    severity: error
+    message: Fejl i udlodningskode
+    correction: Ingen uddybende beskrivelse.
+  '275':
+    severity: error
+    message: Fejl i forskudt regnskabskode
+    correction: Ingen uddybende beskrivelse.
+  '276':
+    severity: error
+    message: Antal styk mangler
+    correction: Ingen uddybende beskrivelse.
+  '277':
+    severity: error
+    message: Fejl i optag-/ej optag kod
+    correction: Ingen uddybende beskrivelse.
+  '279':
+    severity: error
+    message: ISIN-fondskode mangler
+    correction: Ingen uddybende beskrivelse.
+  '280':
+    severity: error
+    message: Fejl i ISIN-fondskode
+    correction: Ingen uddybende beskrivelse.
+  '284':
+    severity: error
+    message: AS-ident mangler
+    correction: Undersøg om AS-identen er udfyldt korrekt, når der indberettes på et dansk papir. AS-identen kan kun indberettes med 00000, hvis der er tale om et udenlandsk papir.
+  '285':
+    severity: error
+    message: Invst.typ 2/5 og opt til handl
+    correction: Ingen uddybende beskrivelse.
+  '289':
+    severity: error
+    message: SENR ophørt før indkomstår
+    correction: Indberetningen forsøges foretaget for et se-nr., som er ophørt før kalenderåret for indberetningen. Investors cvr-nr. eller se-nr. fremkommer med en ophørsdato, som ligger før det kalenderår der indberettes om. Undersøg kunderegistreringen, ret denne, og foretag derefter en ny indberetning på de korrekte identifikationsoplysninger.
+  '298':
+    severity: error
+    message: Fejl i postboks
+    correction: Ingen uddybende beskrivelse.
+  '299':
+    severity: error
+    message: Fødested mangler
+    correction: Ingen uddybende beskrivelse.
+  '301':
+    severity: error
+    message: Depotkode kræver ejrst 8
+    correction: Undersøg om investors ejerstatuskode eller depotkoderegistrering er korrekt. Depotkode KAP eller BOP sammen med ejerstatuskode 8 bruges på skattebegunstigede ordninger, fx pensionsdepoter eller børneopsparingsdepoter. Samtidig skal felt 28 være oplyst med kode 1.
+  '302':
+    severity: error
+    message: Invst.art. fejl i landekode
+    correction: Ingen uddybende beskrivelse.
+  '303':
+    severity: error
+    message: Ret udlodkod/invst.art kode
+    correction: Investeringsinstitut-art i felt 16 er oplyst med kode 1 (minimumsbeskattede). Se indberetningsvejledningen om udbytte og beholdning, afsnit 4.3.5 om felt 31 vedrørende udlodningskode 5 (geninvestering) og udlodningskode 6 (spidser).
+  '305':
+    severity: error
+    message: Ret udlodkod/invst.virk.
+    correction: Ingen uddybende beskrivelse.
+  '307':
+    severity: error
+    message: Fejl i udlodders se-nr.
+    correction: Ingen uddybende beskrivelse
+  '308':
+    severity: error
+    message: Ejrst 8 kræver depotkode KAP
+    correction: Undersøg om ejerstatuskode er korrekt. Er den det, skal depotregistreringen oplyses med koden KAP. Samtidig skal felt 28 være oplyst med kode 1.
+  '311':
+    severity: error
+    message: Antal styk/nominel mangler
+    correction: Ingen uddybende beskrivelse.
+  '323':
+    severity: error
+    message: Ejrst 8 kræver skatbgustord
+    correction: Undersøg om ejerstatuskode er korrekt. Er den det, skal felt 28 være udfyldt med kode 1. Samtidig skal depotregistrering oplyses med kode KAP eller BOP.
+  '324':
+    severity: error
+    message: Udlodkod 5 mgl udbyttebeløb
+    correction: Ingen uddybende beskrivelse.
+  '325':
+    severity: error
+    message: Ret udlodkod eller ret beløb
+    correction: Ingen uddybende beskrivelse.
+  '326':
+    severity: error
+    message: Fejl i fortegn styk/nominel
+    correction: Ingen uddybende beskrivelse.
+  '328':
+    severity: error
+    message: Fejl i indeholdt udbytteskat
+    correction: 'For danske papirer: Undersøg udbytteskattebeløbet. Felt 45 skal være udfyldt med udbytteskattebeløbet, når der er tale om investeringsinstitut art 1, A og 1,B samt 8, A, B eller O bortset fra depotkode REV, FRI, BOP og KAP. (AMD, EAK og DIF for kalenderåret 2026)
+
+
+      For udenlandske papirer: Undersøg udbytteskattebeløbet. Ved indberetning af et udenlandsk papir skal det faktiske indeholdte udbytteskattebeløb indberettes, såfremt denne er 0 (nul), skal felt 45 indberettes med 0 (nul). (Feltet må ikke være blankt).
+
+
+      For yderligere vejledning se beskrivelsen til felt 45 i denne vejledning.'
+  '329':
+    severity: error
+    message: Depotkode kræver se-nr.
+    correction: Ingen uddybende beskrivelse.
+  '330':
+    severity: error
+    message: Fejl i kode særlig tilladelse
+    correction: Ingen uddybende beskrivelse.
+  '334':
+    severity: error
+    message: Nettoudbytte > årlig udbytte
+    correction: Ingen uddybende beskrivelse.
+  '357':
+    severity: error
+    message: Depotkode ASK kræver udbytpct 0
+    correction: Udbytteskatteprocenten skal indberettes med "00000"
+  '358':
+    severity: error
+    message: Depotkode ASK kræver ejrst 0/1
+    correction: ASK kræver indberetning på en person og kun ejerstatuskode 0 eller 1.
+  '360':
+    severity: error
+    message: Indeh.udbskat ej for depotkod
+    correction: Udbytteskattebeløb over 0 må ikke indberettes på depotkode ASK.
+  '364':
+    severity: error
+    message: Papiret kan ikke indgå i ASK
+    correction: I ASK kan der alene indgå aktiebaserede investeringsbeviser.
+  '365':
+    severity: error
+    message: Depotkod ASK inv.art ej 1,3,8
+    correction: En aktiesparekonto kan ikke oprettes af en kontoførende forening - inv. art 2.
+  '366':
+    severity: error
+    message: Depotkod kræver CPRNR
+    correction: ASK kan kun oprettes til fysiske personer.
+  '401':
+    severity: error
+    message: Indsendt data vedr. beholdning
+    correction: Indberetningstype (felt 69) er udfyldt med kode 1 = udlodning/geninvestering. Der kan ikke indberettes om beholdning/kursværdi når indberetningstypen er udfyldt med kode 1.
+  '402':
+    severity: error
+    message: Indsendt data vedr. udb/geninv
+    correction: Indberetningstype (felt 69) er udfyldt med kode 2 = beholdning. Der kan ikke indberettes om udbytte/udlodning/geninvestering når indberetningstypen er udfyldt med kode 2.
+  '403':
+    severity: error
+    message: Beløb vedr. beholdning mangler
+    correction: Indberetningstype (felt 69) er udfyldt med kode 2 = beholdning. Der mangler at blive udfyldt et beløb eller som minimum et "0" i felterne "Kursværdi" felt 47 og "indestående/nominel værdi" felt 48.
+  '404':
+    severity: error
+    message: Data vedr. udb/geninv mangler
+    correction: Indberetningstype (felt 69) er udfyldt med kode 1 = udlodning/geninvestering. Der mangler at blive udfyldt beløb eller som minimum et 0 (nul) i beløbsfelterne vedrørende udbytte. Følgende felter skal ligeledes være udfyldt "udlodders se.nr.", "udbytteskatteprocenten", "vedtagelsesdato" samt "udlodningskode".
+  '405':
+    severity: error
+    message: Kapitalindk. ikke for art/virke
+    correction: Ved indberetning af 1A, 8A, 3A, 3B og 3O i henholdsvis art og virke for investeringsinstitut, skal felt 37 udlodning/tilskrivning der er kapitalindkomst (KAPINDKUDLBLB) og felt 39 frivillig kapitalindkomst (FRIUDLKAPINDBLB) udfyldes med "0" (nul).
+  '406':
+    severity: error
+    message: Aktieindk. ikke for art/virke
+    correction: Ved indberetning af 1O, 1B, 8B og 8O i henholdsvis art og virke for investeringsinstitut, skal felt 35 dansk udbytte før indeholdt udbytteskat (DKUDBIEHSKATBLB), felt 41 øvrig aktieindkomst uden træk af udbytteskat (UDLOEVAKTINDKBLB) og felt 40 frivillig aktieindkomst (FRIUDLAKTINDKBLB) udfyldes med "0"(nul).
+  '407':
+    severity: error
+    message: Ret ejerstatus eller ejerandel
+    correction: I har udfyldt ejerandel, som I kun skal anvende når I indberetter om mere end 2 ejere, men ejerstatuskoden er ikke udfyldt med enten F eller V. Undersøg for korrekt ejerstatuskode eller korrekt ejerandel.
+  '408':
+    severity: error
+    message: Fejl i ejerandel
+    correction: I har udfyldt ejerstatuskode med F eller V, men ejerandel er udfyldt forkert fx med bogstaver, tegn mv.
+  '409':
+    severity: error
+    message: Ejerandel mgl. for ejerstatus
+    correction: I har udfyldt ejerstatuskode med F eller V, men ejerandel er udfyldt med blank eller 000000 (seks nuller). Når I anvender ejerstatus F og V (mere end 2 ejere) skal I indberette om kundens ejerandel.
+  '410':
+    severity: error
+    message: Rente/kapitalejerkode mangler
+    correction: I mangler at udfylde rente/kapitalejerkode med enten R eller K.
+  '411':
+    severity: error
+    message: Rente/kapitalejerkode ej blank
+    correction: Ingen uddybende beskrivelse.
+  '412':
+    severity: error
+    message: Fejl i rente/kapitalejerkode
+    correction: Rente/kapitalejerkode er ikke udfyldt med R eller K.
+  '414':
+    severity: error
+    message: Fejl i depotkode for cpr-nr.
+    correction: Indberetningen er afvist fordi I indberetter om et kalenderår efter det år, hvor investor er fyldt 21. I kan kun anvende depotkode BOP indtil udgangen af det kalenderår, hvor børneopsparingsordningen udløber.
+  '415':
+    severity: error
+    message: Ejrst 8 kun depotkode KAP og BOP
+    correction: Undersøg om ejerstatuskode er korrekt. Er den det, skal depotregistreringen oplyses med koden KAP eller BOP. Samtidig skal felt 28 være oplyst med kode 1.
+  '416':
+    severity: error
+    message: Skatbgustord ejr. ej 1/5/8/U/V
+    correction: Ingen uddybende beskrivelse.
+  '599':
+    severity: ok
+    message: Ingen fejl
+    correction: Kvittering for godkendt indberetning.
+  '801':
+    severity: advisory
+    message: SENR ophører i indkomståret.
+  '802':
+    severity: advisory
+    message: 'Advis for frikort og revisorerklæring. Der er indberettet med depotkode REV eller FRI på en person. Vi opfordrer jer til at gennemgå depotregistreringen for at sikre, at depoterne er korrekt klassificeret.
+
+
+      For løbende indberetning for 2026 udgår depotkode REV og den erstattes af depotkode AMD, EAK og DIF.'
+  '803':
+    severity: advisory
+    message: 'Der er indberettet Tintypekode 3: Kunderegistreringen er mangelfuld og opfylder derfor ikke kravene til indberetningspligten. Oplysningerne skal fortsat forsøges indhentet.'
+  '804':
+    severity: advisory
+    message: Papirtypen kan ikke forblive i ASK. Der er indberettet på papirer, der ikke er aktiebaserede, dvs. klassifikation O eller B.
+  '805':
+    severity: advisory
+    message: Udbyttefrikort ej registreret Den indberettede udbyttemodtager er ikke registreret med et udbyttefrikort hos Skattestyrelsen.
+  '806':
+    severity: advisory
+    message: Udlodders SENR ikke indberettet korrekt

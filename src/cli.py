@@ -1,52 +1,31 @@
-from pathlib import Path
+import argparse
 
-from metadata import MetadataLoader
-from validator import Validator
+from .report import ReportWriter
+from .validator import validate_file
 
 
 def main():
-
-    metadata = MetadataLoader(
-        "../data/structures"
+    parser = argparse.ArgumentParser(
+        description="Validate an IFPA fixed-width file."
     )
-
-    validator = Validator()
-
-    errors = []
-
-    file_name = (
-        "input/"
-        "20260109_163204_IFPA2235-3RD.txt"
+    parser.add_argument("input_file")
+    parser.add_argument(
+        "--report",
+        help="Write validation errors to an Excel workbook.",
     )
-
-    with open(
-        file_name,
-        encoding="latin-1"
-    ) as fh:
-
-        for line_no, line in enumerate(fh, start=1):
-
-            record_type = line[:4]
-
-            try:
-                structure = metadata.load_structure(
-                    record_type
-                )
-            except FileNotFoundError:
-                continue
-
-            errors.extend(
-                validator.validate_record(
-                    line_no,
-                    line.rstrip("\n"),
-                    structure
-                )
-            )
-
+    args = parser.parse_args()
+    report = validate_file(args.input_file)
     print(
         f"Validation complete. "
-        f"{len(errors)} errors found."
+        f"{report['summary']['error_count']} errors found."
     )
+    for error in report["errors"]:
+        print(
+            f"Line {error['line']}: {error['field']} "
+            f"[{error['error']}] {error['message']}"
+        )
+    if args.report:
+        ReportWriter.write(report["errors"], args.report)
 
 
 if __name__ == "__main__":

@@ -339,38 +339,37 @@ Examples:
 
 # Immediate Next Tasks
 
-## Task 1
+## Task 1 — Completed
 
-Implement trailer validation.
+Implemented trailer validation. The `9998` schema defines the count field,
+sender number, and record type. File validation compares the trailer count
+with records including the header and trailer, excluding record types listed
+in the trailer schema's `record_count_excluded_types`.
 
-Compare actual record count with count stored in 9998.
+The current sample has no filler records. The official 9998 source says filler
+individuals must not be counted. No filler record type is identified in the
+available source pages, so the exclusion list is currently empty.
 
-Generate error if mismatch occurs.
+The final period in the sample is an intentional marker that protects trailing
+spaces from truncation. It is allowed in the final filler field; other 2235
+filler regions are required to be blank.
 
-## Task 2
+## Task 2 — Completed
 
-Create complete 2235 YAML definition.
+Created the 2235 YAML definition from the official 2025 SKAT Bilag 2 and
+Bilag 3 layouts. It contains all 83 fields and filler regions; field widths
+cover all 1,346 positions.
 
-The test file only contains 2235 records.
+## Task 3 — Completed
 
-This should be the first fully-modelled record type.
+Created the Bilag 5 catalogue from the official 2025 SKAT page: 109 error
+codes, code 599, and advisories 801–806, including correction guidance where
+provided.
 
-## Task 3
+## Task 4 — Completed
 
-Create Bilag 5 YAML catalogue.
-
-Extract:
-
-- Code
-- Severity
-- Description
-- Correction guidance
-
-## Task 4
-
-Generate Excel output
-
-Desired output:
+The CLI accepts `--report` to write an Excel workbook with the requested
+columns:
 
 | Line | Record | Field | Code | Description | Value |
 |--------|--------|--------|--------|--------|--------|
