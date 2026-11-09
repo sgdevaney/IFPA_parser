@@ -1,0 +1,17 @@
+record_type: 2235
+
+record_length: 1346
+
+fields:
+
+  - name: INDVNR
+    start: 1
+    length: 4
+    datatype: numeric
+    required: true
+
+  - name: OPSENR
+    start: 5
+    length: 8
+    datatype: numeric
+    required: true

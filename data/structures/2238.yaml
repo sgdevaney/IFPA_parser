@@ -1,0 +1,15 @@
+record_type: "2238"
+description: "Adjustment detail"
+fields:
+  - name: member_id
+    type: int
+    required: true
+    length: 10
+  - name: adjustment_code
+    type: str
+    required: true
+    length: 10
+  - name: amount
+    type: float
+    required: true
+    length: 20

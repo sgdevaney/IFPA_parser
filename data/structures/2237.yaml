@@ -1,0 +1,15 @@
+record_type: "2237"
+description: "Invoice summary"
+fields:
+  - name: member_id
+    type: int
+    required: true
+    length: 10
+  - name: invoice_count
+    type: int
+    required: true
+    length: 8
+  - name: revenue
+    type: float
+    required: true
+    length: 20

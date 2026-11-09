@@ -1,0 +1,5 @@
+BILAG5:
+  code: BILAG5
+  title: Missing required field
+  message: A required field is missing from the IFPA record.
+  severity: error
